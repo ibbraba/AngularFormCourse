@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import {FormBuilder, FormControl, Validators} from "@angular/forms";
+import {confirmPasswordValidator} from "./shared/passwordConfirm.validator";
+
 
 @Component({
   selector: 'app-root',
@@ -9,25 +11,29 @@ import {FormBuilder, FormControl, Validators} from "@angular/forms";
 export class AppComponent {
   title = 'Angular Form Course';
 
+  get formErrors(){
+    return this.registrationForm.errors
+  }
+
   get usernameField(){
     return this.registrationForm.controls['username']
   }
 
   get passwordField(){
-    return this.registrationForm.get("password")
+    return this.registrationForm.controls['password']
   }
 
   get confirmPasswordField(){
-    return this.registrationForm.get("confirmPassword")
+    return this.registrationForm.controls['confirmPassword']
   }
 
   constructor(private formBuilder: FormBuilder) {
   }
 
   registrationForm = this.formBuilder.group({
-      username: ["Ibra", [Validators.required, Validators.minLength(4)]],
-      password: ["123"],
-      confirmPassword: ['']
-  })
+      username: ["", [Validators.required, Validators.minLength(4)]],
+      password: ["", [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ["", Validators.required]
+  }, {validator : confirmPasswordValidator })
 
 }
