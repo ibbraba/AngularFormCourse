@@ -44,8 +44,10 @@
 
 
 
-    <button [disabled]="registrationForm.invalid" class="btn btn-primary" type="submit">Submit</button>
-
+    <button [disabled]="registrationForm.invalid || submitted" class="btn btn-primary" type="submit">Submit</button>
+    <div *ngIf="submitted">
+      <p class="text text-primary">Formulaire envoyé ! </p>
+    </div>
 
 
     <!--<div class="form-group">

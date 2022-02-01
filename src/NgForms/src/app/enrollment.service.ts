@@ -10,7 +10,7 @@ export class EnrollmentService {
   constructor(private client:HttpClient) {
   }
 
-  url = "http://127.0.0.1:8000/app"
+  url = "http://localhost:3000/enroll"
 
   enroll(userData: any){
    return this.client.post<any>(this.url, userData)

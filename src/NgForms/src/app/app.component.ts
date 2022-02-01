@@ -10,7 +10,7 @@ import {EnrollmentService} from "./enrollment.service";
 })
 export class AppComponent {
   title = 'Angular Form Course';
-
+  submitted = false
   get formErrors(){
     return this.registrationForm.errors
   }
@@ -41,7 +41,10 @@ export class AppComponent {
     this.enrollementService.enroll(this.registrationForm.value).subscribe(
       response => console.log("Recu !", response),
       error =>  console.log("Error !", error)
+
+
     )
+    this.submitted=true
   }
 
 }
