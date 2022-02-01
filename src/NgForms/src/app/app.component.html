@@ -1,6 +1,6 @@
-<h1>{{title}}</h1>
+<h1 class="mb-5" style="text-align: center">{{title}}</h1>
 
-<div class="container-fluid">
+<div class="container-fluid mx-3">
 
   {{ registrationForm.value | json }}
   {{passwordField.errors  | json}}
@@ -8,14 +8,14 @@
   <div> Errors
   {{formErrors | json }}
   </div>
-  <form [formGroup]="registrationForm">
+  <form [formGroup]="registrationForm" (submit)="submitForm()">
 
     <div  class="form-group">
     <label for="">Username</label>
     <input  formControlName="username" type="text" class="form-control"
             [class.is-invalid]="usernameField.invalid && usernameField.touched">
 
-    <div *ngIf="usernameField.errors">
+    <div *ngIf="usernameField.errors && usernameField.touched">
       <small class="text-danger" *ngIf="usernameField.errors['required']"> Username field is required </small>
       <small class="text-danger" *ngIf="usernameField.errors['minlength']"> Username must be at least 4 characters </small>
     </div>
@@ -28,7 +28,7 @@
            [class.is-invalid]="passwordField.invalid && passwordField.touched">
     </div>
 
-    <div *ngIf="passwordField.errors">
+    <div *ngIf="passwordField.errors && passwordField.touched">
       <small class="text-danger" *ngIf="passwordField.errors['required']">A password is required</small>
       <small class="text-danger" *ngIf="passwordField.errors['minlength']">Min. 6 characters  </small>
     </div>
@@ -45,6 +45,8 @@
 
 
     <button [disabled]="registrationForm.invalid" class="btn btn-primary" type="submit">Submit</button>
+
+
 
     <!--<div class="form-group">
     <label for=""></label>

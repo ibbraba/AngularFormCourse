@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {FormBuilder, FormControl, Validators} from "@angular/forms";
 import {confirmPasswordValidator} from "./shared/passwordConfirm.validator";
-
+import {EnrollmentService} from "./enrollment.service";
 
 @Component({
   selector: 'app-root',
@@ -27,7 +27,7 @@ export class AppComponent {
     return this.registrationForm.controls['confirmPassword']
   }
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private enrollementService: EnrollmentService) {
   }
 
   registrationForm = this.formBuilder.group({
@@ -35,5 +35,13 @@ export class AppComponent {
       password: ["", [Validators.required, Validators.minLength(6)]],
       confirmPassword: ["", Validators.required]
   }, {validator : confirmPasswordValidator })
+
+
+  submitForm(){
+    this.enrollementService.enroll(this.registrationForm.value).subscribe(
+      response => console.log("Recu !", response),
+      error =>  console.log("Error !", error)
+    )
+  }
 
 }
